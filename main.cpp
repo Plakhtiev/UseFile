@@ -1,11 +1,5 @@
 #include <iostream>
 #include <windows.h>
-/*Дз. Написать приложение, которое принимает на вход 2 пути:
-path_from и path_to.
-дальше приложение должно сделать копию файла path_from в path_to используя системные API*/
-
-/*Реализовать класс WinException. Данный класс должен внутри получать системный код ошибки через GetLastError и сообщение об ошибке через FormatMessageA
-Реализовать функцию, которая будет вызываться из main и создавать файл используя CreateFile API. В случае ошибки, функция должна выбрасывать WinException, который будет перехватываться в main и выводиться пользователю в консоль.*/
 
 void ErrorMessage() {
 	setlocale(LC_ALL, "ru");
@@ -29,13 +23,13 @@ void CopyFile(LPCWSTR path_from, LPCWSTR  path_to) {
 	DWORD  dwBytesRead, dwBytesWritten, dwPos;
 	BYTE   buff[4096];
 
-	fileSourse = CreateFile(path_from, // open One.txt
-		GENERIC_READ,             // open for reading
-		0,                        // do not share
-		NULL,                     // no security
-		OPEN_EXISTING,            // existing file only
-		FILE_ATTRIBUTE_NORMAL,    // normal file
-		NULL);                    // no attr. template
+	fileSourse = CreateFile(path_from,
+		GENERIC_READ,
+		0,
+		NULL,
+		OPEN_EXISTING,
+		FILE_ATTRIBUTE_NORMAL,
+		NULL);
 
 	if (fileSourse == INVALID_HANDLE_VALUE)
 	{
@@ -48,12 +42,12 @@ void CopyFile(LPCWSTR path_from, LPCWSTR  path_to) {
 	}
 
 	fileCopy = CreateFile(path_to,
-		GENERIC_WRITE,         // open for writing
-		FILE_SHARE_READ,          // allow multiple readers
-		NULL,                     // no security
-		CREATE_ALWAYS,              // open or create
-		FILE_ATTRIBUTE_NORMAL,    // normal file
-		NULL);                    // no attr. template
+		GENERIC_WRITE,
+		FILE_SHARE_READ,
+		NULL,
+		CREATE_ALWAYS,
+		FILE_ATTRIBUTE_NORMAL,
+		NULL);
 
 	if (fileCopy == INVALID_HANDLE_VALUE)
 	{
